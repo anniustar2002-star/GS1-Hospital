@@ -60,8 +60,8 @@ export function CycleFlow() {
   const [active, setActive] = useState<CyclePhase | null>(null)
 
   return (
-    <div className="overflow-x-auto pb-4">
-      <div className="mx-auto grid min-w-[880px] grid-cols-6 gap-x-4 gap-y-3">
+    <div className="w-full overflow-x-auto pb-4">
+      <div className="mx-auto grid w-full grid-cols-6 gap-x-3 gap-y-3 lg:gap-x-5">
         {/* Fila 1: de dónde viene el medicamento — fuera del ciclo del paciente */}
         <div className="col-start-2 col-end-5 row-start-1 rounded-2xl bg-indigo-50 p-3 ring-1 ring-indigo-100">
           <p className="mb-2 text-center text-xs font-bold uppercase tracking-wide text-indigo-500">
