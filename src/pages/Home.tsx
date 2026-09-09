@@ -1,9 +1,9 @@
-import { IsometricHospitalMap } from '../components/IsometricHospitalMap'
+import { IllustratedRoomGrid } from '../components/IllustratedRoomGrid'
 
 export function Home() {
   return (
-    <div className="mx-auto max-w-6xl px-6 py-12">
-      <header className="mb-4 text-center">
+    <div className="mx-auto max-w-5xl px-6 py-12">
+      <header className="mb-10 text-center">
         <p className="mb-2 inline-block rounded-full bg-blue-50 px-4 py-1 text-sm font-semibold text-blue-700">
           GS1 Hospital · Tour interactivo
         </p>
@@ -16,11 +16,7 @@ export function Home() {
         </p>
       </header>
 
-      <IsometricHospitalMap />
-
-      <p className="mb-2 -mt-6 text-center text-xs text-slate-400">
-        Las salas en color tienen simulación interactiva completa. Las salas en gris llegarán próximamente.
-      </p>
+      <IllustratedRoomGrid />
 
       <footer className="mt-16 text-center text-xs text-slate-400">
         Demostración educativa inspirada en los procesos hospitalarios de GS1 — pensada para presentarse en stand.

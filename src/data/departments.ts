@@ -272,6 +272,7 @@ export const departments: Department[] = [
     description:
       'Cada unidad de sangre se identifica de forma única desde la donación hasta la transfusión, con doble verificación antes de conectarla al paciente.',
     gridArea: 'banco',
+    heroImage: '/illustrations/banco-scene.svg',
     processes: [
       {
         id: 'vena-a-vena',
