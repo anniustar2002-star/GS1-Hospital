@@ -1,5 +1,3 @@
-import { departments } from '../data/departments'
-import { DepartmentCard } from '../components/DepartmentCard'
 import { IsometricHospitalMap } from '../components/IsometricHospitalMap'
 
 export function Home() {
@@ -20,15 +18,9 @@ export function Home() {
 
       <IsometricHospitalMap />
 
-      <p className="mb-6 -mt-10 text-center text-xs text-slate-400">
+      <p className="mb-2 -mt-6 text-center text-xs text-slate-400">
         Las salas en color tienen simulación interactiva completa. Las salas en gris llegarán próximamente.
       </p>
-
-      <div className="grid gap-6 sm:grid-cols-2">
-        {departments.map((dept) => (
-          <DepartmentCard key={dept.id} dept={dept} />
-        ))}
-      </div>
 
       <footer className="mt-16 text-center text-xs text-slate-400">
         Demostración educativa inspirada en los procesos hospitalarios de GS1 — pensada para presentarse en stand.
