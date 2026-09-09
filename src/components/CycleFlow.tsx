@@ -38,23 +38,25 @@ function PhaseCard({
       <button
         type="button"
         onClick={onClick}
-        className="w-full overflow-hidden rounded-2xl border border-slate-200 bg-white text-left shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-md"
+        className="flex w-full flex-col items-center bg-transparent text-center transition hover:-translate-y-1"
       >
         {phase.heroImage ? (
           <img
             src={phase.heroImage}
             alt=""
-            className={`w-full object-contain ${compact ? 'h-24' : 'h-32'}`}
+            className={`w-full object-contain drop-shadow-md ${compact ? 'h-20' : 'h-28'}`}
           />
         ) : (
-          <span className={`flex w-full items-center justify-center text-white ${phase.color} ${compact ? 'h-24 text-3xl' : 'h-32 text-4xl'}`}>
+          <span
+            className={`flex items-center justify-center rounded-2xl text-white shadow-md ${phase.color} ${
+              compact ? 'h-20 w-20 text-3xl' : 'h-28 w-28 text-4xl'
+            }`}
+          >
             {phase.icon}
           </span>
         )}
-        <div className={compact ? 'px-3 pb-3 pt-1' : 'px-4 pb-4 pt-1'}>
-          <p className={`font-bold leading-tight text-slate-900 ${compact ? 'text-base' : 'text-lg'}`}>{phase.title}</p>
-          {!compact && <p className="text-sm leading-tight text-slate-500">{phase.actor}</p>}
-        </div>
+        <p className={`mt-2 font-bold leading-tight text-slate-900 ${compact ? 'text-sm' : 'text-base'}`}>{phase.title}</p>
+        {!compact && <p className="text-xs leading-tight text-slate-500">{phase.actor}</p>}
       </button>
     </div>
   )
