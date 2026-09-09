@@ -12,6 +12,7 @@ export const departments: Department[] = [
     description:
       'La farmacia hospitalaria recibe, almacena, prepara en unidosis y dispensa cada medicamento verificando siempre que llegue el producto correcto al paciente correcto.',
     gridArea: 'farmacia',
+    heroImage: '/illustrations/pharmacy.svg',
     processes: [
       {
         id: 'dispensacion-segura',
@@ -103,6 +104,7 @@ export const departments: Department[] = [
     description:
       'En el quirófano, cada instrumento e implante se verifica por escaneo para garantizar que el material correcto llegue al paciente correcto, con trazabilidad total ante una alerta de seguridad.',
     gridArea: 'quirofano',
+    heroImage: '/illustrations/quirofano-scene.svg',
     processes: [
       {
         id: 'trazabilidad-implantes',
@@ -188,6 +190,7 @@ export const departments: Department[] = [
     description:
       'Desde que el paciente llega, se le asigna un identificador único que conecta cada prueba, medicamento y traslado a su expediente clínico.',
     gridArea: 'urgencias',
+    heroImage: '/illustrations/urgencias-scene.svg',
     processes: [
       {
         id: 'ruta-clinica',

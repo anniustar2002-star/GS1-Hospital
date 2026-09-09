@@ -25,13 +25,29 @@ export function DepartmentPage() {
         ← Volver al mapa del hospital
       </Link>
 
-      <div className="mb-8 flex items-start gap-4">
-        <span className="text-5xl">{dept.emoji}</span>
-        <div>
-          <h1 className="text-2xl font-extrabold text-slate-900 sm:text-3xl">{dept.name}</h1>
-          <p className={`mt-1 font-medium ${dept.accent}`}>{dept.tagline}</p>
+      {dept.heroImage ? (
+        <div className="mb-6 overflow-hidden rounded-2xl shadow-sm">
+          <div className="relative">
+            <img src={dept.heroImage} alt={dept.name} className="h-56 w-full object-cover sm:h-72" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/10 to-transparent" />
+            <div className="absolute bottom-0 left-0 flex items-end gap-3 p-5">
+              <span className="text-4xl drop-shadow">{dept.emoji}</span>
+              <div>
+                <h1 className="text-2xl font-extrabold text-white drop-shadow sm:text-3xl">{dept.name}</h1>
+                <p className="mt-1 font-medium text-white/90 drop-shadow">{dept.tagline}</p>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="mb-8 flex items-start gap-4">
+          <span className="text-5xl">{dept.emoji}</span>
+          <div>
+            <h1 className="text-2xl font-extrabold text-slate-900 sm:text-3xl">{dept.name}</h1>
+            <p className={`mt-1 font-medium ${dept.accent}`}>{dept.tagline}</p>
+          </div>
+        </div>
+      )}
 
       <div className="mb-8 rounded-2xl bg-white p-5 shadow-sm">
         <h2 className="text-lg font-bold text-slate-900">{process.title}</h2>

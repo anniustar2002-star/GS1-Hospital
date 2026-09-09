@@ -33,5 +33,6 @@ export interface Department {
   tagline: string
   description: string
   gridArea: string
+  heroImage?: string
   processes: ProcessDef[]
 }
