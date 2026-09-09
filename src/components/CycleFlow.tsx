@@ -38,25 +38,23 @@ function PhaseCard({
       <button
         type="button"
         onClick={onClick}
-        className={`w-full rounded-2xl border border-slate-200 bg-white text-left shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-md ${
-          compact ? 'p-4' : 'p-6'
-        }`}
+        className="w-full overflow-hidden rounded-2xl border border-slate-200 bg-white text-left shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-md"
       >
-        <span
-          className={`mb-3 flex items-center justify-center overflow-hidden rounded-xl bg-slate-50 ring-1 ring-slate-100 ${
-            compact ? 'h-16 w-16' : 'h-24 w-24'
-          }`}
-        >
-          {phase.heroImage ? (
-            <img src={phase.heroImage} alt="" className="h-full w-full object-contain p-1.5" />
-          ) : (
-            <span className={`flex h-full w-full items-center justify-center text-white ${phase.color} ${compact ? 'text-2xl' : 'text-3xl'}`}>
-              {phase.icon}
-            </span>
-          )}
-        </span>
-        <p className={`font-bold leading-tight text-slate-900 ${compact ? 'text-base' : 'text-lg'}`}>{phase.title}</p>
-        {!compact && <p className="text-sm leading-tight text-slate-500">{phase.actor}</p>}
+        {phase.heroImage ? (
+          <img
+            src={phase.heroImage}
+            alt=""
+            className={`w-full object-contain ${compact ? 'h-24' : 'h-32'}`}
+          />
+        ) : (
+          <span className={`flex w-full items-center justify-center text-white ${phase.color} ${compact ? 'h-24 text-3xl' : 'h-32 text-4xl'}`}>
+            {phase.icon}
+          </span>
+        )}
+        <div className={compact ? 'px-3 pb-3 pt-1' : 'px-4 pb-4 pt-1'}>
+          <p className={`font-bold leading-tight text-slate-900 ${compact ? 'text-base' : 'text-lg'}`}>{phase.title}</p>
+          {!compact && <p className="text-sm leading-tight text-slate-500">{phase.actor}</p>}
+        </div>
       </button>
     </div>
   )
