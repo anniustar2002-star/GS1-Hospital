@@ -35,12 +35,6 @@ export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () 
         className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        {phase.heroImage && (
-          <div className="flex h-48 w-full items-center justify-center rounded-t-2xl bg-slate-50 p-3">
-            <img src={phase.heroImage} alt={phase.title} className="h-full w-full object-contain" />
-          </div>
-        )}
-
         <div className="p-6">
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-center gap-3">

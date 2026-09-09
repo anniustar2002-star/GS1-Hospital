@@ -43,11 +43,17 @@ function PhaseCard({
         }`}
       >
         <span
-          className={`mb-3 flex items-center justify-center rounded-xl text-white ${phase.color} ${
-            compact ? 'h-11 w-11 text-2xl' : 'h-16 w-16 text-3xl'
+          className={`mb-3 flex items-center justify-center overflow-hidden rounded-xl bg-slate-50 ring-1 ring-slate-100 ${
+            compact ? 'h-16 w-16' : 'h-24 w-24'
           }`}
         >
-          {phase.icon}
+          {phase.heroImage ? (
+            <img src={phase.heroImage} alt="" className="h-full w-full object-contain p-1.5" />
+          ) : (
+            <span className={`flex h-full w-full items-center justify-center text-white ${phase.color} ${compact ? 'text-2xl' : 'text-3xl'}`}>
+              {phase.icon}
+            </span>
+          )}
         </span>
         <p className={`font-bold leading-tight text-slate-900 ${compact ? 'text-base' : 'text-lg'}`}>{phase.title}</p>
         {!compact && <p className="text-sm leading-tight text-slate-500">{phase.actor}</p>}
