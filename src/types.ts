@@ -5,34 +5,17 @@ export interface CapturedField {
   value: string
 }
 
-export interface ProcessStep {
+export interface CyclePhase {
   id: string
+  order: number
   title: string
+  icon: string
+  color: string
   actor: string
   description: string
-  scanLabel: string
   standards: GS1Standard[]
+  scanLabel: string
   capturedFields: CapturedField[]
   alert?: string
-}
-
-export interface ProcessDef {
-  id: string
-  title: string
-  summary: string
-  steps: ProcessStep[]
-}
-
-export interface Department {
-  id: string
-  name: string
-  shortName: string
-  emoji: string
-  color: string
-  accent: string
-  tagline: string
-  description: string
-  gridArea: string
   heroImage?: string
-  processes: ProcessDef[]
 }
