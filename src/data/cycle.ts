@@ -18,7 +18,7 @@ export const mainPhases: CyclePhase[] = [
       { label: 'Identificador de paciente', value: 'GSRN 8412039951002' },
       { label: 'Motivo de ingreso', value: 'Urgencia general' },
     ],
-    heroImage: '/illustrations/urgencias-scene.svg',
+    heroImage: '/illustrations/emergencia.svg',
   },
   {
     id: 'triaje',
@@ -35,6 +35,7 @@ export const mainPhases: CyclePhase[] = [
       { label: 'Constantes', value: 'PA 128/82 · FC 88 · Temp 37.1°C' },
       { label: 'Prioridad', value: 'Nivel 2 — atención prioritaria' },
     ],
+    heroImage: '/illustrations/triaje.svg',
   },
   {
     id: 'habitacion',
@@ -51,7 +52,7 @@ export const mainPhases: CyclePhase[] = [
       { label: 'Habitación', value: '302 · Cama B' },
       { label: 'Ubicación (GLN)', value: '7501234009981' },
     ],
-    heroImage: '/illustrations/banco-scene.svg',
+    heroImage: '/illustrations/habitacion.png',
   },
   {
     id: 'enfermeria',
@@ -68,6 +69,7 @@ export const mainPhases: CyclePhase[] = [
       { label: 'Medicamento', value: 'Paracetamol 500mg' },
       { label: 'Lote', value: 'L2A4098' },
     ],
+    heroImage: '/illustrations/enfermeria.png',
   },
   {
     id: 'administracion',
@@ -82,6 +84,7 @@ export const mainPhases: CyclePhase[] = [
     scanLabel: 'Escanear pulsera + medicamento',
     capturedFields: [{ label: 'Verificación', value: '✔ Paciente, dosis, vía y hora correctos' }],
     alert: 'Si algo no coincide, el sistema bloquea la administración y alerta a enfermería antes de que ocurra el error.',
+    heroImage: '/illustrations/administracion.png',
   },
   {
     id: 'alta',
@@ -95,6 +98,7 @@ export const mainPhases: CyclePhase[] = [
     standards: ['GSRN'],
     scanLabel: 'Cerrar episodio clínico',
     capturedFields: [{ label: 'Episodio', value: 'Cerrado — historial completo disponible' }],
+    heroImage: '/illustrations/alta.png',
   },
 ]
 
@@ -115,6 +119,7 @@ export const supplyBranch: CyclePhase[] = [
       { label: 'Proveedor (GLN)', value: '7501234000012' },
       { label: 'Unidad logística (SSCC)', value: '750123456000000012' },
     ],
+    heroImage: '/illustrations/camion.png',
   },
   {
     id: 'deposito-despacha',
@@ -131,6 +136,7 @@ export const supplyBranch: CyclePhase[] = [
       { label: 'Producto', value: 'Paracetamol 500mg (GTIN 07501234567895)' },
       { label: 'Destino (GLN)', value: 'Farmacia Hospitalaria' },
     ],
+    heroImage: '/illustrations/almacen.png',
   },
   {
     id: 'farmacia-enfermeria',

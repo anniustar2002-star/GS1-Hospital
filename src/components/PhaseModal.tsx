@@ -36,7 +36,9 @@ export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () 
         onClick={(e) => e.stopPropagation()}
       >
         {phase.heroImage && (
-          <img src={phase.heroImage} alt={phase.title} className="h-40 w-full rounded-t-2xl object-cover" />
+          <div className="flex h-48 w-full items-center justify-center rounded-t-2xl bg-slate-50 p-3">
+            <img src={phase.heroImage} alt={phase.title} className="h-full w-full object-contain" />
+          </div>
         )}
 
         <div className="p-6">
