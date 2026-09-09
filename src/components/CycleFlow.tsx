@@ -39,18 +39,18 @@ function PhaseCard({
         type="button"
         onClick={onClick}
         className={`w-full rounded-2xl border border-slate-200 bg-white text-left shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-md ${
-          compact ? 'p-2.5' : 'p-3'
+          compact ? 'p-3.5' : 'p-5'
         }`}
       >
         <span
-          className={`mb-1.5 flex items-center justify-center rounded-xl text-white ${phase.color} ${
-            compact ? 'h-8 w-8 text-base' : 'h-10 w-10 text-lg'
+          className={`mb-2.5 flex items-center justify-center rounded-xl text-white ${phase.color} ${
+            compact ? 'h-10 w-10 text-xl' : 'h-14 w-14 text-2xl'
           }`}
         >
           {phase.icon}
         </span>
-        <p className={`font-bold leading-tight text-slate-900 ${compact ? 'text-xs' : 'text-sm'}`}>{phase.title}</p>
-        {!compact && <p className="text-[11px] leading-tight text-slate-500">{phase.actor}</p>}
+        <p className={`font-bold leading-tight text-slate-900 ${compact ? 'text-sm' : 'text-base'}`}>{phase.title}</p>
+        {!compact && <p className="text-xs leading-tight text-slate-500">{phase.actor}</p>}
       </button>
     </div>
   )
@@ -61,13 +61,13 @@ export function CycleFlow() {
 
   return (
     <div className="w-full overflow-x-auto pb-4">
-      <div className="mx-auto grid w-full grid-cols-6 gap-x-3 gap-y-3 lg:gap-x-5">
+      <div className="mx-auto grid w-full grid-cols-6 gap-x-4 gap-y-5 lg:gap-x-6">
         {/* Fila 1: de dónde viene el medicamento — fuera del ciclo del paciente */}
-        <div className="col-start-2 col-end-5 row-start-1 rounded-2xl bg-indigo-50 p-3 ring-1 ring-indigo-100">
-          <p className="mb-2 text-center text-xs font-bold uppercase tracking-wide text-indigo-500">
+        <div className="col-start-2 col-end-5 row-start-1 rounded-2xl bg-indigo-50 p-4 ring-1 ring-indigo-100">
+          <p className="mb-3 text-center text-sm font-bold uppercase tracking-wide text-indigo-500">
             🚚 De dónde viene el medicamento
           </p>
-          <div className="grid grid-cols-3 gap-x-4">
+          <div className="grid grid-cols-3 gap-x-5">
             {supplyBranch.map((b, i) => (
               <PhaseCard key={b.id} phase={b} onClick={() => setActive(b)} compact showArrow={i > 0} />
             ))}

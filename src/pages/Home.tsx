@@ -2,7 +2,7 @@ import { CycleFlow } from '../components/CycleFlow'
 
 export function Home() {
   return (
-    <div className="mx-auto max-w-5xl px-6 py-12">
+    <div className="mx-auto max-w-6xl px-6 py-12">
       <header className="mb-8 text-center">
         <p className="mb-2 inline-block rounded-full bg-blue-50 px-4 py-1 text-sm font-semibold text-blue-700">
           Ciclo Hospital GS1
