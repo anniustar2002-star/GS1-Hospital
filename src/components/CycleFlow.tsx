@@ -44,12 +44,12 @@ function PhaseCard({
           <img
             src={phase.heroImage}
             alt=""
-            className={`w-full object-contain drop-shadow-md ${compact ? 'h-20' : 'h-28'}`}
+            className={`w-full object-contain drop-shadow-md ${compact ? 'h-32' : 'h-44'}`}
           />
         ) : (
           <span
             className={`flex items-center justify-center rounded-2xl text-white shadow-md ${phase.color} ${
-              compact ? 'h-20 w-20 text-3xl' : 'h-28 w-28 text-4xl'
+              compact ? 'h-32 w-32 text-5xl' : 'h-44 w-44 text-6xl'
             }`}
           >
             {phase.icon}
