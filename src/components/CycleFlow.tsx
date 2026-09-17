@@ -44,19 +44,19 @@ function PhaseCard({
           <img
             src={phase.heroImage}
             alt=""
-            className={`w-full object-contain drop-shadow-md ${compact ? 'h-32' : 'h-44'}`}
+            className={`w-full object-contain drop-shadow-md ${compact ? 'h-48' : 'h-64'}`}
           />
         ) : (
           <span
             className={`flex items-center justify-center rounded-2xl text-white shadow-md ${phase.color} ${
-              compact ? 'h-32 w-32 text-5xl' : 'h-44 w-44 text-6xl'
+              compact ? 'h-48 w-48 text-6xl' : 'h-64 w-64 text-7xl'
             }`}
           >
             {phase.icon}
           </span>
         )}
-        <p className={`mt-2 font-bold leading-tight text-slate-900 ${compact ? 'text-sm' : 'text-base'}`}>{phase.title}</p>
-        {!compact && <p className="text-xs leading-tight text-slate-500">{phase.actor}</p>}
+        <p className={`mt-3 font-bold leading-tight text-slate-900 ${compact ? 'text-lg' : 'text-xl'}`}>{phase.title}</p>
+        {!compact && <p className="text-sm leading-tight text-slate-500">{phase.actor}</p>}
       </button>
     </div>
   )
@@ -68,11 +68,11 @@ export function CycleFlow() {
   return (
     <div className="flex w-full flex-col items-center gap-4">
       {/* De dónde viene el medicamento — fuera del ciclo del paciente, centrado arriba */}
-      <div className="w-full max-w-2xl rounded-2xl bg-indigo-50 p-5 ring-1 ring-indigo-100">
-        <p className="mb-3 text-center text-sm font-bold uppercase tracking-wide text-indigo-500">
+      <div className="w-full max-w-4xl rounded-2xl bg-indigo-50 p-8 ring-1 ring-indigo-100">
+        <p className="mb-5 text-center text-base font-bold uppercase tracking-wide text-indigo-500">
           🚚 De dónde viene el medicamento
         </p>
-        <div className="grid grid-cols-3 gap-x-5">
+        <div className="grid grid-cols-3 gap-x-10">
           {supplyBranch.map((b, i) => (
             <PhaseCard key={b.id} phase={b} onClick={() => setActive(b)} compact showArrow={i > 0} />
           ))}
@@ -82,7 +82,7 @@ export function CycleFlow() {
       <ArrowDown />
 
       {/* Ciclo principal del paciente, de izquierda a derecha */}
-      <div className="grid w-full grid-cols-6 gap-x-5">
+      <div className="grid w-full grid-cols-6 gap-x-8">
         {mainPhases.map((phase, i) => (
           <PhaseCard key={phase.id} phase={phase} onClick={() => setActive(phase)} showArrow={i > 0} />
         ))}
