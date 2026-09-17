@@ -18,4 +18,8 @@ export interface CyclePhase {
   capturedFields: CapturedField[]
   alert?: string
   heroImage?: string
+  /** Códigos válidos para este paso (los que se imprimieron para el evento). */
+  expectedCodes: string[]
+  /** Si es true, hay que escanear TODOS los códigos de expectedCodes (en cualquier orden). */
+  requireAll?: boolean
 }

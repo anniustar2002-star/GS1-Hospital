@@ -19,6 +19,7 @@ export const mainPhases: CyclePhase[] = [
       { label: 'Motivo de ingreso', value: 'Urgencia general' },
     ],
     heroImage: '/illustrations/emergencia.svg',
+    expectedCodes: ['GSRN:8412039951002'],
   },
   {
     id: 'triaje',
@@ -36,6 +37,7 @@ export const mainPhases: CyclePhase[] = [
       { label: 'Prioridad', value: 'Nivel 2 — atención prioritaria' },
     ],
     heroImage: '/illustrations/triaje.svg',
+    expectedCodes: ['GSRN:8412039951002'],
   },
   {
     id: 'habitacion',
@@ -53,6 +55,7 @@ export const mainPhases: CyclePhase[] = [
       { label: 'Ubicación (GLN)', value: '7501234009981' },
     ],
     heroImage: '/illustrations/habitacion.png',
+    expectedCodes: ['7501234009981'],
   },
   {
     id: 'enfermeria',
@@ -70,6 +73,7 @@ export const mainPhases: CyclePhase[] = [
       { label: 'Lote', value: 'L2A4098' },
     ],
     heroImage: '/illustrations/enfermeria.png',
+    expectedCodes: ['07501234567895'],
   },
   {
     id: 'administracion',
@@ -85,6 +89,8 @@ export const mainPhases: CyclePhase[] = [
     capturedFields: [{ label: 'Verificación', value: '✔ Paciente, dosis, vía y hora correctos' }],
     alert: 'Si algo no coincide, el sistema bloquea la administración y alerta a enfermería antes de que ocurra el error.',
     heroImage: '/illustrations/administracion.png',
+    expectedCodes: ['GSRN:8412039951002', '07501234567895'],
+    requireAll: true,
   },
   {
     id: 'alta',
@@ -99,6 +105,7 @@ export const mainPhases: CyclePhase[] = [
     scanLabel: 'Cerrar episodio clínico',
     capturedFields: [{ label: 'Episodio', value: 'Cerrado — historial completo disponible' }],
     heroImage: '/illustrations/alta.png',
+    expectedCodes: ['GSRN:8412039951002'],
   },
 ]
 
@@ -120,6 +127,7 @@ export const supplyBranch: CyclePhase[] = [
       { label: 'Unidad logística (SSCC)', value: '750123456000000012' },
     ],
     heroImage: '/illustrations/camion.png',
+    expectedCodes: ['750123456000000012'],
   },
   {
     id: 'deposito-despacha',
@@ -137,6 +145,7 @@ export const supplyBranch: CyclePhase[] = [
       { label: 'Destino (GLN)', value: 'Farmacia Hospitalaria' },
     ],
     heroImage: '/illustrations/almacen.png',
+    expectedCodes: ['07501234567895'],
   },
   {
     id: 'farmacia-enfermeria',
@@ -150,5 +159,6 @@ export const supplyBranch: CyclePhase[] = [
     scanLabel: 'Escanear traslado a enfermería',
     capturedFields: [{ label: 'Unidosis', value: 'UD-88213 (enlazado al lote L2A4098)' }],
     heroImage: '/illustrations/pharmacy.svg',
+    expectedCodes: ['UD88213'],
   },
 ]

@@ -3,10 +3,14 @@ import type { CyclePhase } from '../types'
 import { StandardBadge } from './StandardBadge'
 
 export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () => void }) {
-  const [scanned, setScanned] = useState(false)
+  const [matched, setMatched] = useState<string[]>([])
   const [listening, setListening] = useState(false)
   const [lastCode, setLastCode] = useState<string | null>(null)
+  const [scanError, setScanError] = useState<string | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+
+  const needsAll = Boolean(phase.requireAll)
+  const scanned = needsAll ? matched.length >= phase.expectedCodes.length : matched.length > 0
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -23,24 +27,41 @@ export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () 
   const startListening = () => {
     if (scanned) return
     setListening(true)
+    setScanError(null)
+  }
+
+  const tryCode = (raw: string) => {
+    const code = raw.trim()
+    if (!code) return
+    setLastCode(code)
+
+    const normalized = code.toUpperCase()
+    const hit = phase.expectedCodes.find(
+      (c) => c.toUpperCase() === normalized && !matched.includes(c),
+    )
+
+    if (!hit) {
+      setScanError('Ese código no corresponde a este paso. Intenta escanear el correcto.')
+      window.setTimeout(() => setScanError(null), 2200)
+      return
+    }
+
+    setScanError(null)
+    setMatched((prev) => [...prev, hit])
   }
 
   const handleGunInput = () => {
-    // Los lectores de código de barras/QR envían el código como texto de
-    // teclado seguido de Enter, como si alguien lo tipeara muy rápido.
-    const code = inputRef.current?.value.trim()
-    if (!code) return
-    setLastCode(code)
-    setScanned(true)
-    setListening(false)
+    const value = inputRef.current?.value ?? ''
     if (inputRef.current) inputRef.current.value = ''
+    tryCode(value)
   }
 
   const simulateWithoutScanner = () => {
-    setLastCode(null)
-    setScanned(true)
-    setListening(false)
+    const missing = phase.expectedCodes.find((c) => !matched.includes(c))
+    if (missing) tryCode(missing)
   }
+
+  const stillMissing = needsAll ? phase.expectedCodes.length - matched.length : scanned ? 0 : 1
 
   return (
     <div
@@ -118,14 +139,26 @@ export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () 
                       🔫
                     </span>
                     <p className="text-sm font-semibold text-slate-700">Apunta y dispara el lector…</p>
+                    {needsAll && matched.length > 0 && (
+                      <p className="text-xs font-medium text-emerald-600">
+                        {matched.length} de {phase.expectedCodes.length} códigos escaneados — falta {stillMissing}
+                      </p>
+                    )}
                   </div>
                 )}
 
-                <p className="text-xs text-slate-400">
-                  {listening
-                    ? 'Esperando la señal de la pistola de código de barras / QR'
-                    : 'Toca el botón y luego escanea con la pistola lectora'}
-                </p>
+                {scanError ? (
+                  <p className="text-xs font-semibold text-red-600">
+                    ✕ {scanError}
+                    {lastCode && <span className="ml-1 font-mono text-red-400">({lastCode})</span>}
+                  </p>
+                ) : (
+                  <p className="text-xs text-slate-400">
+                    {listening
+                      ? 'Esperando la señal de la pistola de código de barras / QR'
+                      : 'Toca el botón y luego escanea con la pistola lectora'}
+                  </p>
+                )}
 
                 {listening && (
                   <button
@@ -133,7 +166,7 @@ export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () 
                     onClick={simulateWithoutScanner}
                     className="text-xs font-medium text-slate-400 underline"
                   >
-                    ¿Sin lector a la mano? Simular escaneo
+                    ¿Sin lector a la mano? Simular escaneo correcto
                   </button>
                 )}
               </div>
