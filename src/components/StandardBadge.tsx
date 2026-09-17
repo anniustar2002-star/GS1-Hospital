@@ -25,9 +25,9 @@ export function StandardBadge({ code }: { code: GS1Standard }) {
         {code}
       </button>
       {open && (
-        <div className="absolute bottom-full left-1/2 z-20 mb-2 w-56 -translate-x-1/2 rounded-lg bg-slate-900 p-2.5 text-xs text-white shadow-lg">
+        <div className="absolute left-1/2 top-full z-20 mt-2 w-56 -translate-x-1/2 rounded-lg bg-slate-900 p-2.5 text-xs text-white shadow-lg">
+          <div className="absolute left-1/2 bottom-full h-2 w-2 -translate-x-1/2 translate-y-1/2 rotate-45 bg-slate-900" />
           {EXPLANATIONS[code]}
-          <div className="absolute left-1/2 top-full h-2 w-2 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-slate-900" />
         </div>
       )}
     </span>
