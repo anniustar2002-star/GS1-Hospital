@@ -7,6 +7,7 @@ export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () 
   const [listening, setListening] = useState(false)
   const [lastCode, setLastCode] = useState<string | null>(null)
   const [scanError, setScanError] = useState<string | null>(null)
+  const [liveValue, setLiveValue] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
 
   const needsAll = Boolean(phase.requireAll)
@@ -51,9 +52,8 @@ export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () 
   }
 
   const handleGunInput = () => {
-    const value = inputRef.current?.value ?? ''
-    if (inputRef.current) inputRef.current.value = ''
-    tryCode(value)
+    tryCode(liveValue)
+    setLiveValue('')
   }
 
   const simulateWithoutScanner = () => {
@@ -107,22 +107,26 @@ export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () 
           <div className="mt-5 rounded-xl border-2 border-dashed border-slate-200 p-4">
             {!scanned ? (
               <div className="flex flex-col items-center gap-3 py-2 text-center">
-                {/* Input real e invisible: aquí "escribe" la pistola lectora de códigos */}
-                <input
-                  ref={inputRef}
-                  type="text"
-                  className="sr-only"
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      e.preventDefault()
-                      handleGunInput()
-                    }
-                  }}
-                  onBlur={() => {
-                    if (listening) window.setTimeout(() => inputRef.current?.focus(), 50)
-                  }}
-                  autoComplete="off"
-                />
+                {listening && (
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={liveValue}
+                    onChange={(e) => setLiveValue(e.target.value)}
+                    placeholder="Esperando el código…"
+                    className="w-full max-w-xs rounded-lg border-2 border-slate-300 bg-white px-3 py-2 text-center font-mono text-sm tracking-wide text-slate-800 shadow-inner focus:border-slate-400 focus:outline-none"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault()
+                        handleGunInput()
+                      }
+                    }}
+                    onBlur={() => {
+                      window.setTimeout(() => inputRef.current?.focus(), 50)
+                    }}
+                    autoComplete="off"
+                  />
+                )}
 
                 {!listening ? (
                   <button
