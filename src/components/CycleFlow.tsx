@@ -70,7 +70,7 @@ export function CycleFlow() {
       {/* De dónde viene el medicamento — fuera del ciclo del paciente, centrado arriba */}
       <div className="w-full max-w-4xl rounded-2xl bg-indigo-50 p-8 ring-1 ring-indigo-100">
         <p className="mb-5 text-center text-base font-bold uppercase tracking-wide text-indigo-500">
-          🚚 De dónde viene el medicamento
+          ¿De dónde viene el medicamento?
         </p>
         <div className="grid grid-cols-3 gap-x-10">
           {supplyBranch.map((b, i) => (

@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { CyclePhase } from '../types'
 import { StandardBadge } from './StandardBadge'
 
 export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () => void }) {
   const [scanned, setScanned] = useState(false)
-  const [scanning, setScanning] = useState(false)
+  const [listening, setListening] = useState(false)
+  const [lastCode, setLastCode] = useState<string | null>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -14,13 +16,30 @@ export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () 
     return () => window.removeEventListener('keydown', onKey)
   }, [onClose])
 
-  const handleScan = () => {
-    if (scanned || scanning) return
-    setScanning(true)
-    window.setTimeout(() => {
-      setScanning(false)
-      setScanned(true)
-    }, 600)
+  useEffect(() => {
+    if (listening) inputRef.current?.focus()
+  }, [listening])
+
+  const startListening = () => {
+    if (scanned) return
+    setListening(true)
+  }
+
+  const handleGunInput = () => {
+    // Los lectores de código de barras/QR envían el código como texto de
+    // teclado seguido de Enter, como si alguien lo tipeara muy rápido.
+    const code = inputRef.current?.value.trim()
+    if (!code) return
+    setLastCode(code)
+    setScanned(true)
+    setListening(false)
+    if (inputRef.current) inputRef.current.value = ''
+  }
+
+  const simulateWithoutScanner = () => {
+    setLastCode(null)
+    setScanned(true)
+    setListening(false)
   }
 
   return (
@@ -66,22 +85,63 @@ export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () 
 
           <div className="mt-5 rounded-xl border-2 border-dashed border-slate-200 p-4">
             {!scanned ? (
-              <div className="flex flex-col items-center gap-2 py-2 text-center">
-                <button
-                  type="button"
-                  onClick={handleScan}
-                  disabled={scanning}
-                  className={`flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold text-white shadow transition active:scale-95 disabled:opacity-70 ${phase.color}`}
-                >
-                  <span className="text-lg">📷</span>
-                  {scanning ? 'Escaneando…' : phase.scanLabel}
-                </button>
-                <p className="text-xs text-slate-400">Toca para simular el escaneo del código GS1</p>
+              <div className="flex flex-col items-center gap-3 py-2 text-center">
+                {/* Input real e invisible: aquí "escribe" la pistola lectora de códigos */}
+                <input
+                  ref={inputRef}
+                  type="text"
+                  className="sr-only"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault()
+                      handleGunInput()
+                    }
+                  }}
+                  onBlur={() => {
+                    if (listening) window.setTimeout(() => inputRef.current?.focus(), 50)
+                  }}
+                  autoComplete="off"
+                />
+
+                {!listening ? (
+                  <button
+                    type="button"
+                    onClick={startListening}
+                    className={`flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold text-white shadow transition active:scale-95 ${phase.color}`}
+                  >
+                    <span className="text-lg">🔫</span>
+                    {phase.scanLabel}
+                  </button>
+                ) : (
+                  <div className="flex flex-col items-center gap-2">
+                    <span className="flex h-14 w-14 animate-pulse items-center justify-center rounded-full bg-slate-100 text-2xl">
+                      🔫
+                    </span>
+                    <p className="text-sm font-semibold text-slate-700">Apunta y dispara el lector…</p>
+                  </div>
+                )}
+
+                <p className="text-xs text-slate-400">
+                  {listening
+                    ? 'Esperando la señal de la pistola de código de barras / QR'
+                    : 'Toca el botón y luego escanea con la pistola lectora'}
+                </p>
+
+                {listening && (
+                  <button
+                    type="button"
+                    onClick={simulateWithoutScanner}
+                    className="text-xs font-medium text-slate-400 underline"
+                  >
+                    ¿Sin lector a la mano? Simular escaneo
+                  </button>
+                )}
               </div>
             ) : (
               <div>
                 <p className="mb-2 flex items-center gap-2 text-sm font-semibold text-emerald-600">
                   <span>✔</span> Escaneo capturado correctamente
+                  {lastCode && <span className="font-mono text-xs text-slate-400">({lastCode})</span>}
                 </p>
                 <dl className="grid gap-2 sm:grid-cols-2">
                   {phase.capturedFields.map((f) => (
