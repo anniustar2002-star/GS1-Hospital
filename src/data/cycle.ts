@@ -4,6 +4,10 @@ import type { CyclePhase } from '../types'
 // Es el mismo empaque físico, así que se escanea igual en Farmacia, Enfermería y Administración.
 const UNIDOSIS_CODE = '(01)07501234567895(17)271231(10)L2A4098(21)88213'
 
+// La pulsera del paciente se imprime como número plano (el identificador de
+// aplicación GSRN es solo texto guía junto al código, no va codificado en la barra).
+const PACIENTE_CODE = '8412039951002'
+
 // El ciclo principal del paciente: ingresa, se le atiende, se le administra
 // tratamiento y se le da de alta.
 export const mainPhases: CyclePhase[] = [
@@ -23,7 +27,7 @@ export const mainPhases: CyclePhase[] = [
       { label: 'Motivo de ingreso', value: 'Urgencia general' },
     ],
     heroImage: '/illustrations/emergencia.svg',
-    expectedCodes: ['GSRN:8412039951002'],
+    expectedCodes: [PACIENTE_CODE],
   },
   {
     id: 'triaje',
@@ -41,7 +45,7 @@ export const mainPhases: CyclePhase[] = [
       { label: 'Prioridad', value: 'Nivel 2 — atención prioritaria' },
     ],
     heroImage: '/illustrations/triaje.svg',
-    expectedCodes: ['GSRN:8412039951002'],
+    expectedCodes: [PACIENTE_CODE],
   },
   {
     id: 'habitacion',
@@ -95,8 +99,9 @@ export const mainPhases: CyclePhase[] = [
     capturedFields: [{ label: 'Verificación', value: '✔ Paciente, dosis, vía y hora correctos' }],
     alert: 'Si algo no coincide, el sistema bloquea la administración y alerta a enfermería antes de que ocurra el error.',
     heroImage: '/illustrations/administracion.png',
-    expectedCodes: ['GSRN:8412039951002', UNIDOSIS_CODE],
+    expectedCodes: [PACIENTE_CODE, UNIDOSIS_CODE],
     requireAll: true,
+    codeLabels: ['Pulsera del paciente', 'Medicamento (unidosis)'],
   },
   {
     id: 'alta',
@@ -111,7 +116,7 @@ export const mainPhases: CyclePhase[] = [
     scanLabel: 'Cerrar episodio clínico',
     capturedFields: [{ label: 'Episodio', value: 'Cerrado — historial completo disponible' }],
     heroImage: '/illustrations/alta.png',
-    expectedCodes: ['GSRN:8412039951002'],
+    expectedCodes: [PACIENTE_CODE],
   },
 ]
 

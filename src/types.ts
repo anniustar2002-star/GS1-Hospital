@@ -22,4 +22,6 @@ export interface CyclePhase {
   expectedCodes: string[]
   /** Si es true, hay que escanear TODOS los códigos de expectedCodes (en cualquier orden). */
   requireAll?: boolean
+  /** Etiquetas legibles para cada código de expectedCodes, en el mismo orden (para el checklist). */
+  codeLabels?: string[]
 }

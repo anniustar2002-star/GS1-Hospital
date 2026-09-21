@@ -4,10 +4,9 @@ import { StandardBadge } from './StandardBadge'
 
 export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () => void }) {
   const [matched, setMatched] = useState<string[]>([])
-  const [listening, setListening] = useState(false)
+  const [liveValue, setLiveValue] = useState('')
   const [lastCode, setLastCode] = useState<string | null>(null)
   const [scanError, setScanError] = useState<string | null>(null)
-  const [liveValue, setLiveValue] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
 
   const needsAll = Boolean(phase.requireAll)
@@ -21,15 +20,10 @@ export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () 
     return () => window.removeEventListener('keydown', onKey)
   }, [onClose])
 
+  // Escucha de inmediato al abrir la ventana — no hace falta tocar un botón antes.
   useEffect(() => {
-    if (listening) inputRef.current?.focus()
-  }, [listening])
-
-  const startListening = () => {
-    if (scanned) return
-    setListening(true)
-    setScanError(null)
-  }
+    if (!scanned) inputRef.current?.focus()
+  }, [scanned])
 
   const tryCode = (raw: string) => {
     const code = raw.trim()
@@ -61,8 +55,6 @@ export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () 
     if (missing) tryCode(missing)
   }
 
-  const stillMissing = needsAll ? phase.expectedCodes.length - matched.length : scanned ? 0 : 1
-
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4"
@@ -72,126 +64,129 @@ export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () 
       aria-label={phase.title}
     >
       <div
-        className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white shadow-2xl"
+        className="max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-2xl bg-white shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="p-6">
+        <div className="p-8">
           <div className="flex items-start justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <span className={`flex h-11 w-11 items-center justify-center rounded-xl text-2xl text-white ${phase.color}`}>
+            <div className="flex items-center gap-4">
+              <span className={`flex h-14 w-14 items-center justify-center rounded-xl text-3xl text-white ${phase.color}`}>
                 {phase.icon}
               </span>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">{phase.actor}</p>
-                <h2 className="text-xl font-extrabold text-slate-900">{phase.title}</h2>
+                <p className="text-sm font-semibold uppercase tracking-wide text-slate-400">{phase.actor}</p>
+                <h2 className="text-2xl font-extrabold text-slate-900">{phase.title}</h2>
               </div>
             </div>
             <button
               type="button"
               onClick={onClose}
-              className="rounded-full p-1.5 text-slate-400 transition hover:bg-slate-100 hover:text-slate-600"
+              className="rounded-full p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-600"
               aria-label="Cerrar"
             >
-              ✕
+              <span className="text-xl">✕</span>
             </button>
           </div>
 
-          <p className="mt-3 text-sm text-slate-600">{phase.description}</p>
+          <p className="mt-4 text-base text-slate-600">{phase.description}</p>
 
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="mt-5 flex flex-wrap gap-2.5">
             {phase.standards.map((s) => (
               <StandardBadge key={s} code={s} />
             ))}
           </div>
 
-          <div className="mt-5 rounded-xl border-2 border-dashed border-slate-200 p-4">
+          <div className="mt-6 rounded-2xl border-2 border-dashed border-slate-200 p-6">
             {!scanned ? (
-              <div className="flex flex-col items-center gap-3 py-2 text-center">
-                {listening && (
-                  <input
-                    ref={inputRef}
-                    type="text"
-                    value={liveValue}
-                    onChange={(e) => setLiveValue(e.target.value)}
-                    placeholder="Esperando el código…"
-                    className="w-full max-w-xs rounded-lg border-2 border-slate-300 bg-white px-3 py-2 text-center font-mono text-sm tracking-wide text-slate-800 shadow-inner focus:border-slate-400 focus:outline-none"
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        e.preventDefault()
-                        handleGunInput()
-                      }
-                    }}
-                    onBlur={() => {
-                      window.setTimeout(() => inputRef.current?.focus(), 50)
-                    }}
-                    autoComplete="off"
-                  />
-                )}
+              <div className="flex flex-col items-center gap-4 py-2 text-center">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={liveValue}
+                  onChange={(e) => setLiveValue(e.target.value)}
+                  placeholder="Esperando el código…"
+                  className="w-full max-w-sm rounded-xl border-2 border-slate-300 bg-white px-4 py-3 text-center font-mono text-base tracking-wide text-slate-800 shadow-inner focus:border-slate-400 focus:outline-none"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault()
+                      handleGunInput()
+                    }
+                  }}
+                  onBlur={() => {
+                    window.setTimeout(() => inputRef.current?.focus(), 50)
+                  }}
+                  autoComplete="off"
+                  autoFocus
+                />
 
-                {!listening ? (
-                  <button
-                    type="button"
-                    onClick={startListening}
-                    className={`flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold text-white shadow transition active:scale-95 ${phase.color}`}
-                  >
-                    <span className="text-lg">🔫</span>
-                    {phase.scanLabel}
-                  </button>
-                ) : (
-                  <div className="flex flex-col items-center gap-2">
-                    <span className="flex h-14 w-14 animate-pulse items-center justify-center rounded-full bg-slate-100 text-2xl">
-                      🔫
-                    </span>
-                    <p className="text-sm font-semibold text-slate-700">Apunta y dispara el lector…</p>
-                    {needsAll && matched.length > 0 && (
-                      <p className="text-xs font-medium text-emerald-600">
-                        {matched.length} de {phase.expectedCodes.length} códigos escaneados — falta {stillMissing}
-                      </p>
-                    )}
-                  </div>
+                <div className="flex flex-col items-center gap-2">
+                  <span className="flex h-16 w-16 animate-pulse items-center justify-center rounded-full bg-slate-100 text-3xl">
+                    🔫
+                  </span>
+                  <p className="text-base font-semibold text-slate-700">Apunta y dispara el lector…</p>
+                </div>
+
+                {needsAll && phase.expectedCodes.length > 1 && (
+                  <ul className="flex flex-col gap-1.5">
+                    {phase.expectedCodes.map((code, i) => {
+                      const done = matched.includes(code)
+                      const label = phase.codeLabels?.[i] ?? `Código ${i + 1}`
+                      return (
+                        <li
+                          key={code}
+                          className={`flex items-center gap-2 text-sm font-medium ${
+                            done ? 'text-emerald-600' : 'text-slate-400'
+                          }`}
+                        >
+                          <span
+                            className={`flex h-5 w-5 items-center justify-center rounded-full text-xs text-white ${
+                              done ? 'bg-emerald-500' : 'bg-slate-300'
+                            }`}
+                          >
+                            {done ? '✔' : i + 1}
+                          </span>
+                          {label}
+                        </li>
+                      )
+                    })}
+                  </ul>
                 )}
 
                 {scanError ? (
-                  <p className="text-xs font-semibold text-red-600">
+                  <p className="text-sm font-semibold text-red-600">
                     ✕ {scanError}
-                    {lastCode && <span className="ml-1 font-mono text-red-400">({lastCode})</span>}
+                    {lastCode && <span className="ml-1 block break-all font-mono text-xs text-red-400">({lastCode})</span>}
                   </p>
                 ) : (
-                  <p className="text-xs text-slate-400">
-                    {listening
-                      ? 'Esperando la señal de la pistola de código de barras / QR'
-                      : 'Toca el botón y luego escanea con la pistola lectora'}
+                  <p className="text-sm text-slate-400">
+                    Esperando la señal de la pistola de código de barras / QR
                   </p>
                 )}
 
-                {listening && (
-                  <button
-                    type="button"
-                    onClick={simulateWithoutScanner}
-                    className="text-xs font-medium text-slate-400 underline"
-                  >
-                    ¿Sin lector a la mano? Simular escaneo correcto
-                  </button>
-                )}
+                <button
+                  type="button"
+                  onClick={simulateWithoutScanner}
+                  className="text-sm font-medium text-slate-400 underline"
+                >
+                  ¿Sin lector a la mano? Simular escaneo correcto
+                </button>
               </div>
             ) : (
               <div>
-                <p className="mb-2 flex items-center gap-2 text-sm font-semibold text-emerald-600">
+                <p className="mb-2 flex items-center gap-2 text-base font-semibold text-emerald-600">
                   <span>✔</span> Escaneo capturado correctamente
                 </p>
-                {lastCode && (
-                  <p className="mb-2 break-all font-mono text-xs text-slate-400">{lastCode}</p>
-                )}
-                <dl className="grid gap-2 sm:grid-cols-2">
+                {lastCode && <p className="mb-3 break-all font-mono text-xs text-slate-400">{lastCode}</p>}
+                <dl className="grid gap-3 sm:grid-cols-2">
                   {phase.capturedFields.map((f) => (
-                    <div key={f.label} className="rounded-lg bg-slate-50 px-3 py-2">
-                      <dt className="text-[11px] uppercase tracking-wide text-slate-400">{f.label}</dt>
-                      <dd className="font-mono text-sm text-slate-800">{f.value}</dd>
+                    <div key={f.label} className="rounded-lg bg-slate-50 px-4 py-3">
+                      <dt className="text-xs uppercase tracking-wide text-slate-400">{f.label}</dt>
+                      <dd className="font-mono text-base text-slate-800">{f.value}</dd>
                     </div>
                   ))}
                 </dl>
                 {phase.alert && (
-                  <p className="mt-3 rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-800">⚠️ {phase.alert}</p>
+                  <p className="mt-4 rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-800">⚠️ {phase.alert}</p>
                 )}
               </div>
             )}
