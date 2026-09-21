@@ -8,6 +8,7 @@ const EXPLANATIONS: Record<GS1Standard, string> = {
   LOTE: 'Número de lote — Identifica el grupo de producción del artículo, clave para caducidad y recall.',
   SERIE: 'Número de serie — Identifica una unidad individual específica del producto.',
   GSRN: 'GSRN — Número Global de Relación de Servicio. Identifica de forma única a una persona, como un paciente.',
+  CADUCIDAD: 'Fecha de caducidad (AI 17) — Fecha límite de uso del producto, codificada junto al GTIN, lote y serie.',
 }
 
 export function StandardBadge({ code }: { code: GS1Standard }) {

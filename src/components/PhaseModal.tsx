@@ -178,8 +178,10 @@ export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () 
               <div>
                 <p className="mb-2 flex items-center gap-2 text-sm font-semibold text-emerald-600">
                   <span>✔</span> Escaneo capturado correctamente
-                  {lastCode && <span className="font-mono text-xs text-slate-400">({lastCode})</span>}
                 </p>
+                {lastCode && (
+                  <p className="mb-2 break-all font-mono text-xs text-slate-400">{lastCode}</p>
+                )}
                 <dl className="grid gap-2 sm:grid-cols-2">
                   {phase.capturedFields.map((f) => (
                     <div key={f.label} className="rounded-lg bg-slate-50 px-3 py-2">

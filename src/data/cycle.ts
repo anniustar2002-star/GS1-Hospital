@@ -1,5 +1,9 @@
 import type { CyclePhase } from '../types'
 
+// Código real de la unidosis: GS1-128 con GTIN (01) + Caducidad (17) + Lote (10) + Serie (21).
+// Es el mismo empaque físico, así que se escanea igual en Farmacia, Enfermería y Administración.
+const UNIDOSIS_CODE = '(01)07501234567895(17)271231(10)L2A4098(21)88213'
+
 // El ciclo principal del paciente: ingresa, se le atiende, se le administra
 // tratamiento y se le da de alta.
 export const mainPhases: CyclePhase[] = [
@@ -65,15 +69,17 @@ export const mainPhases: CyclePhase[] = [
     color: 'bg-emerald-500',
     actor: 'Enfermería',
     description:
-      'Enfermería recibe el medicamento y lo prepara para administrarlo. Antes de llegar aquí, el medicamento recorrió su propia cadena de suministro (toca las cajas de abajo para verla).',
-    standards: ['GTIN', 'LOTE', 'SERIE'],
-    scanLabel: 'Confirmar recepción del medicamento',
+      'Enfermería recibe la unidosis ya preparada y escanea su código GS1-128, que trae junto el GTIN, la caducidad, el lote y el número de serie. Antes de llegar aquí, el medicamento recorrió su propia cadena de suministro (toca las cajas de abajo para verla).',
+    standards: ['GTIN', 'CADUCIDAD', 'LOTE', 'SERIE'],
+    scanLabel: 'Escanear unidosis recibida',
     capturedFields: [
-      { label: 'Medicamento', value: 'Paracetamol 500mg' },
+      { label: 'Medicamento (GTIN)', value: '07501234567895' },
+      { label: 'Caducidad', value: '31/12/2027' },
       { label: 'Lote', value: 'L2A4098' },
+      { label: 'Serie', value: '88213' },
     ],
     heroImage: '/illustrations/enfermeria.png',
-    expectedCodes: ['07501234567895'],
+    expectedCodes: [UNIDOSIS_CODE],
   },
   {
     id: 'administracion',
@@ -89,7 +95,7 @@ export const mainPhases: CyclePhase[] = [
     capturedFields: [{ label: 'Verificación', value: '✔ Paciente, dosis, vía y hora correctos' }],
     alert: 'Si algo no coincide, el sistema bloquea la administración y alerta a enfermería antes de que ocurra el error.',
     heroImage: '/illustrations/administracion.png',
-    expectedCodes: ['GSRN:8412039951002', '07501234567895'],
+    expectedCodes: ['GSRN:8412039951002', UNIDOSIS_CODE],
     requireAll: true,
   },
   {
@@ -154,11 +160,17 @@ export const supplyBranch: CyclePhase[] = [
     icon: '💊',
     color: 'bg-indigo-500',
     actor: 'Farmacia hospitalaria',
-    description: 'Farmacia prepara el medicamento (en unidosis cuando aplica) y lo traslada a enfermería.',
-    standards: ['GTIN', 'LOTE', 'SERIE'],
-    scanLabel: 'Escanear traslado a enfermería',
-    capturedFields: [{ label: 'Unidosis', value: 'UD-88213 (enlazado al lote L2A4098)' }],
+    description:
+      'Farmacia reempaca el medicamento en dosis unitaria y genera un código GS1-128 que combina el GTIN, la fecha de caducidad, el lote y un número de serie propio de esa unidosis.',
+    standards: ['GTIN', 'CADUCIDAD', 'LOTE', 'SERIE'],
+    scanLabel: 'Escanear unidosis preparada',
+    capturedFields: [
+      { label: 'Medicamento (GTIN)', value: '07501234567895' },
+      { label: 'Caducidad', value: '31/12/2027' },
+      { label: 'Lote', value: 'L2A4098' },
+      { label: 'Serie', value: '88213' },
+    ],
     heroImage: '/illustrations/pharmacy.svg',
-    expectedCodes: ['UD88213'],
+    expectedCodes: [UNIDOSIS_CODE],
   },
 ]

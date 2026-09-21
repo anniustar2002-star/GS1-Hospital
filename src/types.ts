@@ -1,4 +1,4 @@
-export type GS1Standard = 'GTIN' | 'SSCC' | 'GLN' | 'LOTE' | 'SERIE' | 'GSRN'
+export type GS1Standard = 'GTIN' | 'SSCC' | 'GLN' | 'LOTE' | 'SERIE' | 'GSRN' | 'CADUCIDAD'
 
 export interface CapturedField {
   label: string
