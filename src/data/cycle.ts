@@ -1,8 +1,10 @@
 import type { CyclePhase } from '../types'
 
-// Código real de la unidosis: GS1-128 con GTIN (01) + Caducidad (17) + Lote (10) + Serie (21).
-// Es el mismo empaque físico, así que se escanea igual en Farmacia, Enfermería y Administración.
-const UNIDOSIS_CODE = '(01)07501234567895(17)271231(10)L2A4098(21)88213'
+// Código real de la unidosis: GTIN + Caducidad + Lote + Serie, pegados sin
+// paréntesis ni los números de identificador de aplicación (así se generó el
+// código de barras físico). Es el mismo empaque, así que se escanea igual en
+// Farmacia, Enfermería y Administración.
+const UNIDOSIS_CODE = '07501234567895271231L2A409888213'
 
 // La pulsera del paciente se imprime como número plano (el identificador de
 // aplicación GSRN es solo texto guía junto al código, no va codificado en la barra).
