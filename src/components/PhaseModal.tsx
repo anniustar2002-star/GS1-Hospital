@@ -64,10 +64,10 @@ export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () 
       aria-label={phase.title}
     >
       <div
-        className="max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-2xl bg-white shadow-2xl"
+        className="max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="p-8">
+        <div className="p-10">
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-center gap-4">
               <span className={`flex h-14 w-14 items-center justify-center rounded-xl text-3xl text-white ${phase.color}`}>
@@ -96,16 +96,21 @@ export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () 
             ))}
           </div>
 
-          <div className="mt-6 rounded-2xl border-2 border-dashed border-slate-200 p-6">
+          <div className="mt-6 rounded-2xl border-2 border-dashed border-slate-200 p-7">
             {!scanned ? (
-              <div className="flex flex-col items-center gap-4 py-2 text-center">
+              <div className="flex flex-col items-center gap-5 py-2 text-center">
+                <div className={`w-full rounded-xl px-5 py-4 text-white ${phase.color}`}>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-white/80">Qué escanear aquí</p>
+                  <p className="text-lg font-extrabold">{phase.scanLabel}</p>
+                </div>
+
                 <input
                   ref={inputRef}
                   type="text"
                   value={liveValue}
                   onChange={(e) => setLiveValue(e.target.value)}
                   placeholder="Esperando el código…"
-                  className="w-full max-w-sm rounded-xl border-2 border-slate-300 bg-white px-4 py-3 text-center font-mono text-base tracking-wide text-slate-800 shadow-inner focus:border-slate-400 focus:outline-none"
+                  className="w-full max-w-md rounded-xl border-2 border-slate-300 bg-white px-5 py-4 text-center font-mono text-lg tracking-wide text-slate-800 shadow-inner focus:border-slate-400 focus:outline-none"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       e.preventDefault()
@@ -120,26 +125,26 @@ export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () 
                 />
 
                 <div className="flex flex-col items-center gap-2">
-                  <span className="flex h-16 w-16 animate-pulse items-center justify-center rounded-full bg-slate-100 text-3xl">
+                  <span className="flex h-20 w-20 animate-pulse items-center justify-center rounded-full bg-slate-100 text-4xl">
                     🔫
                   </span>
-                  <p className="text-base font-semibold text-slate-700">Apunta y dispara el lector…</p>
+                  <p className="text-lg font-semibold text-slate-700">Apunta y dispara el lector…</p>
                 </div>
 
                 {needsAll && phase.expectedCodes.length > 1 && (
-                  <ul className="flex flex-col gap-1.5">
+                  <ul className="flex flex-col gap-2">
                     {phase.expectedCodes.map((code, i) => {
                       const done = matched.includes(code)
                       const label = phase.codeLabels?.[i] ?? `Código ${i + 1}`
                       return (
                         <li
                           key={code}
-                          className={`flex items-center gap-2 text-sm font-medium ${
+                          className={`flex items-center gap-2.5 text-base font-semibold ${
                             done ? 'text-emerald-600' : 'text-slate-400'
                           }`}
                         >
                           <span
-                            className={`flex h-5 w-5 items-center justify-center rounded-full text-xs text-white ${
+                            className={`flex h-6 w-6 items-center justify-center rounded-full text-sm text-white ${
                               done ? 'bg-emerald-500' : 'bg-slate-300'
                             }`}
                           >
@@ -153,12 +158,12 @@ export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () 
                 )}
 
                 {scanError ? (
-                  <p className="text-sm font-semibold text-red-600">
+                  <p className="text-base font-semibold text-red-600">
                     ✕ {scanError}
-                    {lastCode && <span className="ml-1 block break-all font-mono text-xs text-red-400">({lastCode})</span>}
+                    {lastCode && <span className="ml-1 block break-all font-mono text-sm text-red-400">({lastCode})</span>}
                   </p>
                 ) : (
-                  <p className="text-sm text-slate-400">
+                  <p className="text-base text-slate-400">
                     Esperando la señal de la pistola de código de barras / QR
                   </p>
                 )}
@@ -166,7 +171,7 @@ export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () 
                 <button
                   type="button"
                   onClick={simulateWithoutScanner}
-                  className="text-sm font-medium text-slate-400 underline"
+                  className="text-base font-medium text-slate-400 underline"
                 >
                   ¿Sin lector a la mano? Simular escaneo correcto
                 </button>
