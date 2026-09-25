@@ -18,7 +18,7 @@ export const mainPhases: CyclePhase[] = [
     order: 1,
     title: 'Sala de Emergencia',
     icon: '🚑',
-    color: 'bg-rose-500',
+    color: 'bg-[#00B6DE]',
     actor: 'Personal de urgencias',
     description:
       'El paciente ingresa al hospital. Se genera un identificador único de paciente (GSRN) que lo acompañará durante todo el episodio clínico.',
@@ -36,7 +36,7 @@ export const mainPhases: CyclePhase[] = [
     order: 2,
     title: 'Ingreso / Triaje',
     icon: '🩺',
-    color: 'bg-amber-500',
+    color: 'bg-[#00B6DE]',
     actor: 'Enfermería de triaje',
     description:
       'Se evalúan los signos vitales y se prioriza la atención. Todo queda vinculado al identificador del paciente, sin transcripción manual.',
@@ -54,7 +54,7 @@ export const mainPhases: CyclePhase[] = [
     order: 3,
     title: 'Habitación',
     icon: '🛏️',
-    color: 'bg-sky-500',
+    color: 'bg-[#00B6DE]',
     actor: 'Camillero / Enfermería',
     description:
       'El paciente es trasladado a una habitación y cama específica, identificada con su propio código de ubicación (GLN).',
@@ -72,7 +72,7 @@ export const mainPhases: CyclePhase[] = [
     order: 4,
     title: 'Enfermería',
     icon: '💉',
-    color: 'bg-emerald-500',
+    color: 'bg-[#00B6DE]',
     actor: 'Enfermería',
     description:
       'Enfermería recibe la unidosis ya preparada y escanea su código GS1-128, que trae junto el GTIN, la caducidad, el lote y el número de serie. Antes de llegar aquí, el medicamento recorrió su propia cadena de suministro (toca las cajas de abajo para verla).',
@@ -92,7 +92,7 @@ export const mainPhases: CyclePhase[] = [
     order: 5,
     title: 'Administración al paciente',
     icon: '✅',
-    color: 'bg-emerald-600',
+    color: 'bg-[#00B6DE]',
     actor: 'Enfermería',
     description:
       'Antes de administrar, se escanean la pulsera del paciente y el medicamento: el sistema verifica los 5 correctos (paciente, medicamento, dosis, vía y hora).',
@@ -110,7 +110,7 @@ export const mainPhases: CyclePhase[] = [
     order: 6,
     title: 'Alta del paciente',
     icon: '🏠',
-    color: 'bg-slate-500',
+    color: 'bg-[#00B6DE]',
     actor: 'Sistema clínico',
     description:
       'Se cierra el episodio clínico. Todo el recorrido —desde el ingreso hasta el medicamento administrado— queda registrado para trazabilidad o auditoría.',
@@ -130,7 +130,7 @@ export const supplyBranch: CyclePhase[] = [
     order: 1,
     title: 'Llega el camión al depósito',
     icon: '🚚',
-    color: 'bg-indigo-500',
+    color: 'bg-[#00B6DE]',
     actor: 'Personal de depósito',
     description: 'El camión del proveedor llega al depósito y descarga los medicamentos e insumos solicitados.',
     standards: ['GTIN', 'SSCC', 'GLN'],
@@ -147,7 +147,7 @@ export const supplyBranch: CyclePhase[] = [
     order: 2,
     title: 'Depósito despacha a Farmacia',
     icon: '📦',
-    color: 'bg-indigo-500',
+    color: 'bg-[#00B6DE]',
     actor: 'Personal de depósito',
     description:
       'El depósito registra la recepción de cada producto y despacha lo solicitado hacia la farmacia hospitalaria.',
@@ -165,7 +165,7 @@ export const supplyBranch: CyclePhase[] = [
     order: 3,
     title: 'Farmacia traslada a Enfermería',
     icon: '💊',
-    color: 'bg-indigo-500',
+    color: 'bg-[#00B6DE]',
     actor: 'Farmacia hospitalaria',
     description:
       'Farmacia reempaca el medicamento en dosis unitaria y genera un código GS1-128 que combina el GTIN, la fecha de caducidad, el lote y un número de serie propio de esa unidosis.',
