@@ -23,7 +23,7 @@ export function Home() {
       <CycleFlow />
 
       <footer className="mt-16 text-center text-xs text-slate-400">
-        Demostración educativa inspirada en los procesos hospitalarios de GS1 — pensada para presentarse en stand.
+        Experiencia Interactiva — Derechos Reservados GS1 Venezuela
       </footer>
     </div>
   )
