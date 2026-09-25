@@ -124,13 +124,6 @@ export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () 
                   autoFocus
                 />
 
-                <div className="flex flex-col items-center gap-2">
-                  <span className="flex h-20 w-20 animate-pulse items-center justify-center rounded-full bg-slate-100 text-4xl">
-                    🔫
-                  </span>
-                  <p className="text-lg font-semibold text-slate-700">Esperando que se apunte y dispare el lector…</p>
-                </div>
-
                 {needsAll && phase.expectedCodes.length > 1 && (
                   <ul className="flex flex-col gap-2">
                     {phase.expectedCodes.map((code, i) => {
