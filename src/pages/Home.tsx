@@ -3,6 +3,10 @@ import { CycleFlow } from '../components/CycleFlow'
 export function Home() {
   return (
     <div className="mx-auto w-full max-w-[1800px] px-10 py-12">
+      <div className="mb-6 flex justify-start">
+        <img src="/logos/gs1-logo-color.png" alt="GS1" className="h-14 w-auto object-contain sm:h-16" />
+      </div>
+
       <header className="mb-8 text-center">
         <p className="mb-2 inline-block rounded-full bg-blue-50 px-4 py-1 text-sm font-semibold text-blue-700">
           Ciclo Hospital GS1
