@@ -8,7 +8,7 @@ export function Home() {
       </div>
 
       <header className="mb-8 text-center">
-        <p className="mb-2 inline-block rounded-full bg-[#00B6DE]/10 px-6 py-2 text-2xl font-extrabold uppercase tracking-wide text-[#00B6DE] sm:text-3xl">
+        <p className="mb-2 inline-block text-2xl font-extrabold uppercase tracking-wide text-[#00B6DE] sm:text-3xl">
           GS1 Health Center
         </p>
         <h1 className="text-2xl font-extrabold text-slate-900 sm:text-3xl">
