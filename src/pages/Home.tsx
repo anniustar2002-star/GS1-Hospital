@@ -8,8 +8,8 @@ export function Home() {
       </div>
 
       <header className="mb-8 text-center">
-        <p className="mb-2 inline-block rounded-full bg-blue-50 px-4 py-1 text-sm font-semibold text-blue-700">
-          Ciclo Hospital GS1
+        <p className="mb-2 inline-block rounded-full bg-blue-50 px-5 py-1.5 text-lg font-bold uppercase tracking-wide text-blue-700">
+          GS1 Health Center
         </p>
         <h1 className="text-3xl font-extrabold text-slate-900 sm:text-4xl">
           Descubre cómo los estándares GS1 cuidan al paciente
