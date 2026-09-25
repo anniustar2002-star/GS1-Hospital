@@ -4,7 +4,7 @@ export function Home() {
   return (
     <div className="mx-auto w-full max-w-[1800px] px-10 py-12">
       <div className="mb-6 flex justify-start">
-        <img src="/logos/gs1-logo-color.png" alt="GS1" className="h-14 w-auto object-contain sm:h-16" />
+        <img src="/logos/gs1-logo-color.png" alt="GS1" className="h-24 w-auto object-contain sm:h-28" />
       </div>
 
       <header className="mb-8 text-center">
