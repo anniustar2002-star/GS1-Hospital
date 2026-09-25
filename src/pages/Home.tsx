@@ -12,7 +12,7 @@ export function Home() {
           GS1 Health Center
         </p>
         <h1 className="text-3xl font-extrabold text-slate-900 sm:text-4xl">
-          Cómo los estándares GS1 cuidan al paciente
+          Descubre cómo los estándares GS1 cuidan al paciente
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-slate-600">
           El recorrido de un paciente, desde que ingresa hasta que se le da de alta. Cada cuadro puede tocarse
