@@ -5,8 +5,8 @@ import { PhaseModal } from './PhaseModal'
 
 function ArrowRight() {
   return (
-    <span className="absolute -left-4 top-1/2 z-10 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-slate-100 text-slate-400">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+    <span className="absolute -left-5 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-slate-100 text-slate-400">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
         <path d="M4 12h16M14 6l6 6-6 6" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     </span>
@@ -15,7 +15,7 @@ function ArrowRight() {
 
 function ArrowDown() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-indigo-300">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" className="text-indigo-300">
       <path d="M12 4v16M12 20l-5-5M12 20l5-5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
