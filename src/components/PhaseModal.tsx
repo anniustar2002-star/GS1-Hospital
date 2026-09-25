@@ -36,7 +36,7 @@ export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () 
     )
 
     if (!hit) {
-      setScanError('Ese código no corresponde a este paso. Intenta escanear el correcto.')
+      setScanError('Ese código no corresponde a este paso. Debe escanearse el código correcto.')
       window.setTimeout(() => setScanError(null), 2200)
       return
     }
@@ -128,7 +128,7 @@ export function PhaseModal({ phase, onClose }: { phase: CyclePhase; onClose: () 
                   <span className="flex h-20 w-20 animate-pulse items-center justify-center rounded-full bg-slate-100 text-4xl">
                     🔫
                   </span>
-                  <p className="text-lg font-semibold text-slate-700">Apunta y dispara el lector…</p>
+                  <p className="text-lg font-semibold text-slate-700">Esperando que se apunte y dispare el lector…</p>
                 </div>
 
                 {needsAll && phase.expectedCodes.length > 1 && (
