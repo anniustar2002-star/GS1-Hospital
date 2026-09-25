@@ -8,10 +8,10 @@ export function Home() {
       </div>
 
       <header className="mb-8 text-center">
-        <p className="mb-2 inline-block rounded-full bg-blue-50 px-5 py-1.5 text-lg font-bold uppercase tracking-wide text-blue-700">
+        <p className="mb-2 inline-block rounded-full bg-[#00B6DE]/10 px-6 py-2 text-2xl font-extrabold uppercase tracking-wide text-[#00B6DE] sm:text-3xl">
           GS1 Health Center
         </p>
-        <h1 className="text-3xl font-extrabold text-slate-900 sm:text-4xl">
+        <h1 className="text-2xl font-extrabold text-slate-900 sm:text-3xl">
           Descubre cómo los estándares GS1 cuidan al paciente
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-slate-600">
